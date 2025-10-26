@@ -2,7 +2,7 @@
 import { Clock, Star, ChefHat } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
 
-export default function FeaturedMakananSection({ featuredMakanan }) {
+export default function FeaturedMakananSection({ featuredMakanan, onNavigate }) {
   const [visibleMakanan, setVisibleMakanan] = useState(new Set());
   const makananRefs = useRef([]);
 
@@ -44,11 +44,14 @@ export default function FeaturedMakananSection({ featuredMakanan }) {
           <div 
             key={recipe.id} 
             ref={el => makananRefs.current[index] = el}
+            onClick={() => onNavigate && onNavigate('detail', `makanan-${recipe.id}`)}
             className={`group transform transition-all duration-700 ${
               visibleMakanan.has(index) 
                 ? 'translate-y-0 opacity-100' 
                 : 'translate-y-8 opacity-0'
             }`}
+            role="button"
+            tabIndex={0}
           >
             <div className="relative bg-white/15 backdrop-blur-xl border border-white/25 rounded-2xl md:rounded-3xl overflow-hidden shadow-lg md:shadow-2xl shadow-blue-500/5 hover:shadow-blue-500/15 transition-all duration-500 cursor-pointer group-hover:scale-105 group-hover:bg-white/20">
               

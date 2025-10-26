@@ -5,7 +5,7 @@ import HeroSection from '../components/home/HeroSection';
 import FeaturedMakananSection from '../components/home/FeaturedMakananSection';
 import FeaturedMinumanSection from '../components/home/FeaturedMinumanSection';
 
-export default function HomePage() {
+export default function HomePage({ onNavigate }) {
   const featuredMakanan = Object.values(ResepMakanan.resep).slice(0, 3);
   const featuredMinuman = Object.values(ResepMinuman.resep).slice(0, 2);
 
@@ -15,8 +15,8 @@ export default function HomePage() {
       
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 md:px-8 space-y-12 md:space-y-16">
-        <FeaturedMakananSection featuredMakanan={featuredMakanan} />
-        <FeaturedMinumanSection featuredMinuman={featuredMinuman} />
+  <FeaturedMakananSection featuredMakanan={featuredMakanan} onNavigate={onNavigate} />
+  <FeaturedMinumanSection featuredMinuman={featuredMinuman} onNavigate={onNavigate} />
       </main>
     </div>
   );

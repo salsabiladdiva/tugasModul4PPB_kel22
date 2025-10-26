@@ -7,7 +7,7 @@ export default function MinumanPage({ onNavigate }) {
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredRecipes, setFilteredRecipes] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const recipesPerPage = 8;
+  const recipesPerPage = 3;
 
   const allMinuman = Object.values(ResepMinuman.resep);
 
@@ -27,6 +27,12 @@ export default function MinumanPage({ onNavigate }) {
 
     filter();
   }, [searchQuery, allMinuman.length]);
+
+  // Ensure currentPage is valid when filteredRecipes changes
+  useEffect(() => {
+    const totalPages = Math.max(1, Math.ceil(filteredRecipes.length / recipesPerPage));
+    setCurrentPage((prev) => Math.min(prev, totalPages));
+  }, [filteredRecipes, recipesPerPage]);
 
   return (
   

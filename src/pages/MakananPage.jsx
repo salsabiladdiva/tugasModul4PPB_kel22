@@ -7,7 +7,7 @@ export default function MakananPage({ onNavigate }) {
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredRecipes, setFilteredRecipes] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const recipesPerPage = 8;
+  const recipesPerPage = 3;
 
   const allMakanan = Object.values(ResepMakanan.resep);
   useEffect(() => {
@@ -26,6 +26,12 @@ export default function MakananPage({ onNavigate }) {
 
     filter();
   }, [searchQuery, allMakanan.length]);
+
+  // Ensure currentPage is valid when filteredRecipes changes
+  useEffect(() => {
+    const totalPages = Math.max(1, Math.ceil(filteredRecipes.length / recipesPerPage));
+    setCurrentPage((prev) => Math.min(prev, totalPages));
+  }, [filteredRecipes, recipesPerPage]);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50 pb-20 md:pb-8">
