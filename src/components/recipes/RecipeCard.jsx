@@ -34,7 +34,14 @@ export default function RecipeCard({ recipe, onNavigate }) {
   return (
     <div
       className="group transform transition-all duration-700 hover:scale-105"
-      onClick={() => onNavigate("detail", getFullId())}
+      onClick={() => onNavigate && onNavigate("detail", getFullId())}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter') {
+          onNavigate && onNavigate('detail', getFullId());
+        }
+      }}
     >
       <div className="relative bg-white/15 backdrop-blur-xl border border-white/25 rounded-2xl md:rounded-3xl overflow-hidden shadow-lg md:shadow-2xl shadow-blue-500/5 hover:shadow-blue-500/15 transition-all duration-500 cursor-pointer group-hover:bg-white/20">
         <div className="absolute top-4 right-4 z-20">

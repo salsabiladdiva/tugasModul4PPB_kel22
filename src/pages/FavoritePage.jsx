@@ -9,20 +9,22 @@ export default function FavoritePage({ onNavigate }) {
 
   // Function to load favorite recipes
   const loadFavoriteRecipes = () => {
+    // Keep original numeric IDs and add a `type` field. When checking favorites,
+    // compare against the full id string `${type}-${id}` which is what we store in localStorage.
     const allMakanan = Object.values(ResepMakanan.resep).map((recipe) => ({
       ...recipe,
-      id: `makanan-${recipe.id}`,
+      id: recipe.id,
       type: "makanan",
     }));
     const allMinuman = Object.values(ResepMinuman.resep).map((recipe) => ({
       ...recipe,
-      id: `minuman-${recipe.id}`,
+      id: recipe.id,
       type: "minuman",
     }));
     const allRecipes = [...allMakanan, ...allMinuman];
     const favoriteIds = JSON.parse(localStorage.getItem("favorites") || "[]");
     setFavoriteRecipes(
-      allRecipes.filter((recipe) => favoriteIds.includes(recipe.id))
+      allRecipes.filter((recipe) => favoriteIds.includes(`${recipe.type}-${recipe.id}`))
     );
   };
 
